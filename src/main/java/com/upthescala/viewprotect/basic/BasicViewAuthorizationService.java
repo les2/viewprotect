@@ -12,6 +12,11 @@ import com.upthescala.viewprotect.ComponentAttribute;
 import com.upthescala.viewprotect.ComponentAttributeSource;
 import com.upthescala.viewprotect.ViewAuthorizationService;
 
+/**
+ * An implementation of {@link ViewAuthorizationService} that delegates to a
+ * configured {@link ComponentAttributeSource} in order to determine whether
+ * access is allowed.
+ */
 public class BasicViewAuthorizationService implements ViewAuthorizationService {
 
 	private static final Log logger = LogFactory
@@ -19,8 +24,15 @@ public class BasicViewAuthorizationService implements ViewAuthorizationService {
 
 	private ComponentAttributeSource componentAttributeSource;
 
-	private boolean allowAccessIfComponentIsNotConfigured = false;
+	private boolean allowAccessIfComponentIsNotConfigured = true;
 
+	/**
+	 * @throws IllegalArgumentException
+	 *             if the {@link Authentication#getAuthorities()} returns
+	 *             {@code null} or if {@link GrantedAuthority#getAuthority()}
+	 *             returns {@code null} for any {@link GrantedAuthority} the
+	 *             user possesses.
+	 */
 	public boolean isAuthorizedForUser(final String componentId,
 			final Authentication user) {
 
@@ -72,6 +84,15 @@ public class BasicViewAuthorizationService implements ViewAuthorizationService {
 		return grantedRoles;
 	}
 
+	/**
+	 * Sets the fallback behavior to use when permissions have not be configured
+	 * for a component id. The default is to allow this access.
+	 * 
+	 * @param allowAccessIfComponentIsNotConfigured
+	 *            whether to allow access to the component if permissions for it
+	 *            have not been configured in the
+	 *            {@link ComponentAttributeSource}
+	 */
 	public void setAllowAccessIfComponentIsNotConfigured(
 			final boolean allowAccessIfComponentIsNotConfigured) {
 		this.allowAccessIfComponentIsNotConfigured = allowAccessIfComponentIsNotConfigured;

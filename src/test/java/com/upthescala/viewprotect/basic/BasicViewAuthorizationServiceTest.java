@@ -90,6 +90,19 @@ public class BasicViewAuthorizationServiceTest {
 		assertEquals(isSatisfied, authorizedForUser);
 	}
 
+	@Test(expectedExceptions = IllegalArgumentException.class)
+	public void shouldThrowExceptionWhenUserAuthoritiesIsNull() {
+
+		expect(attributeSource.getAttribute("foo")).andReturn(attribute);
+		expect(user.getAuthorities()).andReturn(null);
+
+		replay(mocks);
+
+		viewAuthorizationService.isAuthorizedForUser("foo", user);
+
+		assert (false) : "unreachable code!";
+	}
+
 	@DataProvider(name = "defaultBehavior")
 	public Object[][] defaultBehaviorDataProvidor() {
 		return new Object[][] { { true }, { false } };

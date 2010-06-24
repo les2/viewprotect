@@ -5,10 +5,10 @@ import org.acegisecurity.Authentication;
 /**
  * A ViewAuthorizationService encapsulates decision making for whether to show a
  * component on a JSP or not. A typical implementation will use a properties
- * with entries such as {@code "myComponent.ifAllRoles=ROLE_ADMIN,ROLE_USER"}.
+ * with entries such as {@code "myComponent.ifAllGranted=ROLE_ADMIN,ROLE_USER"}.
  * file
  * 
- * @author <a href="mailto:lloyd.smith@gmail.com">Lloyd Smith</a>
+ * @author Lloyd Smith II
  */
 public interface ViewAuthorizationService {
 
