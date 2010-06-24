@@ -16,11 +16,13 @@
 		<!-- framework dependency versions -->
 		<acegi-security.version>1.0.3</acegi-security.version>
 		<jsp-api.version>2.0</jsp-api.version>
-		
+		<spring.version>2.0</spring.version>
+
 		<!-- testing dependency versions -->
 		<testng.version>5.12.1</testng.version>
 		<easymock.version>2.5.2</easymock.version>
-		
+		<spring-test.version>2.5.6</spring-test.version>
+
 		<!-- maven plugin versions -->
 		<cobertura.version>2.3</cobertura.version>
 	</properties>
@@ -31,6 +33,31 @@
 			<groupId>org.acegisecurity</groupId>
 			<artifactId>acegi-security</artifactId>
 			<version>${acegi-security.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-remoting</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-jdbc</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-webmvc</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-support</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring</artifactId>
+			<version>${spring.version}</version>
+			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
@@ -45,12 +72,30 @@
 			<artifactId>testng</artifactId>
 			<version>${testng.version}</version>
 			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>junit</groupId>
+					<artifactId>junit</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.easymock</groupId>
 			<artifactId>easymock</artifactId>
 			<version>${easymock.version}</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring-test.version}</version>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>junit</groupId>
+					<artifactId>junit</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 	</dependencies>
 
