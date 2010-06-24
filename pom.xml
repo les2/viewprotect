@@ -17,6 +17,7 @@
 		<acegi-security.version>1.0.3</acegi-security.version>
 		<jsp-api.version>2.0</jsp-api.version>
 		<testng.version>5.12.1</testng.version>
+		<easymock.version>2.5.2</easymock.version>		
 	</properties>
 
 	<dependencies>
@@ -40,6 +41,12 @@
 			<version>${testng.version}</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.easymock</groupId>
+			<artifactId>easymock</artifactId>
+			<version>${easymock.version}</version>
+			<scope>test</scope>
+		</dependency>		
 	</dependencies>
 
 	<build>

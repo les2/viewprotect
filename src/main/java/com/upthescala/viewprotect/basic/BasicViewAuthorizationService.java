@@ -1,8 +1,6 @@
 package com.upthescala.viewprotect.basic;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 import org.acegisecurity.Authentication;
@@ -11,6 +9,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.upthescala.viewprotect.ComponentAttribute;
+import com.upthescala.viewprotect.ComponentAttributeSource;
 import com.upthescala.viewprotect.ViewAuthorizationService;
 
 public class BasicViewAuthorizationService implements ViewAuthorizationService {
@@ -18,21 +17,21 @@ public class BasicViewAuthorizationService implements ViewAuthorizationService {
 	private static final Log logger = LogFactory
 			.getLog(BasicViewAuthorizationService.class);
 
-	private Map<String, ComponentAttribute> componentAttributeMap = new HashMap<String, ComponentAttribute>();
+	private ComponentAttributeSource componentAttributeSource;
 
 	private boolean allowAccessIfComponentIsNotConfigured = false;
 
 	public boolean isAuthorizedForUser(final String componentId,
 			final Authentication user) {
 
-		ComponentAttribute attribute = componentAttributeMap.get(componentId);
+		ComponentAttribute attribute = componentAttributeSource
+				.getAttribute(componentId);
 
 		if (attribute != null) {
 			final Set<String> grantedRoles = toRoles(user.getAuthorities());
 			final boolean accessGranted = attribute.isSatisfiedBy(grantedRoles);
 			if (logger.isTraceEnabled())
-				logger.trace("User [" + user.getName() + "] with roles ["
-						+ grantedRoles
+				logger.trace("User [" + user + "] with roles [" + grantedRoles
 						+ "] requesting access to component with id ["
 						+ componentId
 						+ "], configured with ComponentAttribute [" + attribute
@@ -76,5 +75,10 @@ public class BasicViewAuthorizationService implements ViewAuthorizationService {
 	public void setAllowAccessIfComponentIsNotConfigured(
 			final boolean allowAccessIfComponentIsNotConfigured) {
 		this.allowAccessIfComponentIsNotConfigured = allowAccessIfComponentIsNotConfigured;
+	}
+
+	public void setComponentAttributeSource(
+			final ComponentAttributeSource componentAttributeSource) {
+		this.componentAttributeSource = componentAttributeSource;
 	}
 }
