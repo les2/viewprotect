@@ -1,5 +1,6 @@
 package com.upthescala.viewprotect.basic;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,7 +16,8 @@ abstract class AbstractComponentAttribute implements ComponentAttribute {
 	protected final Set<String> decisionSet;
 
 	public AbstractComponentAttribute(final Set<String> decisionSet) {
-		this.decisionSet = new HashSet<String>(decisionSet);
+		this.decisionSet = Collections.unmodifiableSet(new HashSet<String>(
+				decisionSet)); // defensive
 	}
 
 	/**
