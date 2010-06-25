@@ -1,4 +1,12 @@
-package com.upthescala.viewprotect;
+package com.upthescala.viewprotect.tag;
+
+import static com.upthescala.viewprotect.basic.BasicTestSupport.array;
+import static org.easymock.EasyMock.createMock;
+import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.replay;
+import static org.easymock.EasyMock.reset;
+import static org.easymock.EasyMock.verify;
+import static org.testng.Assert.assertEquals;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.Tag;
@@ -14,12 +22,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import com.upthescala.viewprotect.tag.ViewProtectTag;
-
-import static com.upthescala.viewprotect.basic.BasicTestSupport.array;
-import static org.testng.Assert.assertEquals;
-
-import static org.easymock.EasyMock.*;
+import com.upthescala.viewprotect.ViewAuthorizationService;
 
 public class ViewProtectTagTest {
 
@@ -65,8 +68,8 @@ public class ViewProtectTagTest {
 
 	@DataProvider(name = "protectTag")
 	public Object[][] protectTagDataProvider() {
-		return new Object[][] { { "foo", false, Tag.SKIP_BODY },
-				{ "foo", true, Tag.EVAL_BODY_INCLUDE }, };
+		return new Object[][]{{"foo", false, Tag.SKIP_BODY},
+				{"foo", true, Tag.EVAL_BODY_INCLUDE},};
 	}
 
 	@Test(dataProvider = "protectTag")
@@ -86,6 +89,8 @@ public class ViewProtectTagTest {
 		replay(mocks);
 
 		tag.setComponentId(componentId);
+
+		assertEquals(tag.getComponentId(), componentId);
 
 		assertEquals(tag.doStartTag(), expectedDoStartTagResult,
 				"doStartTagResult does not match expected");
