@@ -10,6 +10,11 @@ import org.springframework.core.io.ClassPathResource;
 
 import com.upthescala.viewprotect.ViewAuthorizationService;
 
+/**
+ * Internal configuration utility class used by the ViewProtectTag.
+ * 
+ * @author Lloyd Smith II
+ */
 class Config {
 
 	private static final Log logger = LogFactory.getLog(Config.class);
@@ -19,6 +24,11 @@ class Config {
 	 * classpath for ViewProtectTag options.
 	 */
 	public static final String VIEW_PROTECT_PROPERTIES_FILE = "viewprotect.properties";
+
+	/**
+	 * The property key for the bean name of the ViewAuthorizationService.
+	 */
+	public static final String VIEW_AUTHORIZATION_SERVICE_BEAN_NAME_PROP_KEY = "viewAuthorizationService.beanName";
 
 	/**
 	 * The default name used for the Spring bean containing the implementation
@@ -41,8 +51,9 @@ class Config {
 			properties.load(resource.getInputStream());
 
 			beanName = StringUtils
-					.defaultString(properties
-							.getProperty("viewAuthorizationService.beanName"),
+					.defaultString(
+							properties
+									.getProperty(VIEW_AUTHORIZATION_SERVICE_BEAN_NAME_PROP_KEY),
 							beanName);
 		} catch (IOException e) {
 			if (logger.isWarnEnabled())
