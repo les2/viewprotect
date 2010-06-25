@@ -1,17 +1,23 @@
 package com.upthescala.viewprotect.basic;
 
+import static com.upthescala.viewprotect.basic.BasicTestSupport.allGranted;
+import static com.upthescala.viewprotect.basic.BasicTestSupport.anyGranted;
+import static com.upthescala.viewprotect.basic.BasicTestSupport.basicAttributes;
+import static com.upthescala.viewprotect.basic.BasicTestSupport.notGranted;
+import static com.upthescala.viewprotect.basic.BasicTestSupport.roles;
+import static org.testng.Assert.assertEquals;
+
 import java.util.Set;
 
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import static com.upthescala.viewprotect.basic.BasicTestSupport.*;
-import static org.testng.Assert.assertEquals;
-
 public class BasicComponentAttributesTest {
 
 	@DataProvider(name = "basicAttributes")
 	public Object[][] basicAttributesDataProvider() {
+
+		// @formatter:off
 		return new Object[][] {
 				{ basicAttributes(notGranted("a"), null, null), false, roles("a") },
 				{ basicAttributes(notGranted("a"), null, null), true, roles("b") }, 
@@ -52,6 +58,7 @@ public class BasicComponentAttributesTest {
 				{ basicAttributes(notGranted("a","b"), allGranted("1","2"), anyGranted("x","y")), true, roles("1","2","x") },
 				{ basicAttributes(notGranted("a","b"), allGranted("1","2"), anyGranted("x","y")), true, roles("1","2","y") },
 			};
+		// @formatter:on
 	}
 
 	@Test(dataProvider = "basicAttributes")

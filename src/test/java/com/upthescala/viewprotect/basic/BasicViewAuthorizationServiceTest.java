@@ -1,5 +1,16 @@
 package com.upthescala.viewprotect.basic;
 
+import static com.upthescala.viewprotect.basic.BasicTestSupport.array;
+import static com.upthescala.viewprotect.basic.BasicTestSupport.auths;
+import static com.upthescala.viewprotect.basic.BasicTestSupport.grantedRoles;
+import static com.upthescala.viewprotect.basic.BasicTestSupport.roles;
+import static org.easymock.EasyMock.createMock;
+import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.replay;
+import static org.easymock.EasyMock.reset;
+import static org.easymock.EasyMock.verify;
+import static org.testng.Assert.assertEquals;
+
 import org.acegisecurity.Authentication;
 import org.acegisecurity.GrantedAuthority;
 import org.testng.annotations.BeforeMethod;
@@ -8,11 +19,6 @@ import org.testng.annotations.Test;
 
 import com.upthescala.viewprotect.ComponentAttribute;
 import com.upthescala.viewprotect.ComponentAttributeSource;
-
-import static com.upthescala.viewprotect.basic.BasicTestSupport.*;
-import static org.testng.Assert.assertEquals;
-
-import static org.easymock.EasyMock.*;
 
 public class BasicViewAuthorizationServiceTest {
 
@@ -42,11 +48,12 @@ public class BasicViewAuthorizationServiceTest {
 
 	@DataProvider(name = "delegate")
 	public Object[][] delegateDataProvidor() {
+		// @formatter:off
 		return new Object[][] {
 				{ "some.component.a", grantedRoles("ROLE_A"), true },
 				{ "some", grantedRoles("ROLE_A", "b", "ANOTHER"), false },
 				{ "x", grantedRoles(), true }, { "x", grantedRoles(), false }, };
-
+		// @formatter:on
 	}
 
 	@Test(expectedExceptions = IllegalArgumentException.class)
@@ -105,7 +112,7 @@ public class BasicViewAuthorizationServiceTest {
 
 	@DataProvider(name = "defaultBehavior")
 	public Object[][] defaultBehaviorDataProvidor() {
-		return new Object[][] { { true }, { false } };
+		return new Object[][]{{true}, {false}};
 	}
 
 	@Test(dataProvider = "defaultBehavior")
