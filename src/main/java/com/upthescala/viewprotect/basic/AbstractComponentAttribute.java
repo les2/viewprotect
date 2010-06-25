@@ -56,4 +56,8 @@ abstract class AbstractComponentAttribute implements ComponentAttribute {
 		return getClass().getSimpleName() + " [decisionSet=" + decisionSet
 				+ "]";
 	}
+
+	public Set<String> getDecisionSet() {
+		return decisionSet;
+	}
 }

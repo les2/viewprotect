@@ -50,4 +50,16 @@ class BasicComponentAttributes implements ComponentAttribute {
 				+ anyGrantedAttribute + ", notGrantedAttribute="
 				+ notGrantedAttribute + "]";
 	}
+
+	public AnyGrantedAttribute getAnyGrantedAttribute() {
+		return anyGrantedAttribute;
+	}
+
+	public AllGrantedAttribute getAllGrantedAttribute() {
+		return allGrantedAttribute;
+	}
+
+	public NotGrantedAttribute getNotGrantedAttribute() {
+		return notGrantedAttribute;
+	}
 }

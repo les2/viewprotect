@@ -13,7 +13,7 @@ import com.upthescala.viewprotect.ComponentAttributeSource;
  */
 public class BasicComponentAttributeSource implements ComponentAttributeSource {
 
-	private Map<String, ComponentAttribute> componentAttributeMap = new HashMap<String, ComponentAttribute>();
+	private Map<String, ? extends ComponentAttribute> componentAttributeMap = new HashMap<String, ComponentAttribute>();
 
 	public ComponentAttribute getAttribute(final String componentId) {
 		return componentAttributeMap.get(componentId);
@@ -27,10 +27,16 @@ public class BasicComponentAttributeSource implements ComponentAttributeSource {
 	 *             if the argument is {@code null}
 	 */
 	public void setComponentAttributeMap(
-			final Map<String, ComponentAttribute> componentAttributeMap) {
+			final Map<String, ? extends ComponentAttribute> componentAttributeMap) {
 		if (componentAttributeMap == null)
 			throw new IllegalArgumentException("componentAttributeMap is null");
 		this.componentAttributeMap = componentAttributeMap;
+	}
+
+	@Override
+	public String toString() {
+		return "BasicComponentAttributeSource [componentAttributeMap="
+				+ componentAttributeMap + "]";
 	}
 
 }

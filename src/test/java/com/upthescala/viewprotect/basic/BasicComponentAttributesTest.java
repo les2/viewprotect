@@ -1,16 +1,12 @@
 package com.upthescala.viewprotect.basic;
 
-import static com.upthescala.viewprotect.basic.BasicTestSupport.allGranted;
-import static com.upthescala.viewprotect.basic.BasicTestSupport.anyGranted;
-import static com.upthescala.viewprotect.basic.BasicTestSupport.basicAttributes;
-import static com.upthescala.viewprotect.basic.BasicTestSupport.notGranted;
-import static com.upthescala.viewprotect.basic.BasicTestSupport.roles;
-import static org.testng.Assert.assertEquals;
-
 import java.util.Set;
 
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+
+import static com.upthescala.viewprotect.basic.BasicTestSupport.*;
+import static org.testng.Assert.assertEquals;
 
 public class BasicComponentAttributesTest {
 
