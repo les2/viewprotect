@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.upthescala.viewprotect.basic;
 
 import java.util.Set;

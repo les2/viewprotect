@@ -16,6 +16,8 @@ import com.upthescala.viewprotect.ViewAuthorizationService;
  * An implementation of {@link ViewAuthorizationService} that delegates to a
  * configured {@link ComponentAttributeSource} in order to determine whether
  * access is allowed.
+ * 
+ * @author Lloyd Smith II
  */
 public class BasicViewAuthorizationService implements ViewAuthorizationService {
 
@@ -53,13 +55,12 @@ public class BasicViewAuthorizationService implements ViewAuthorizationService {
 		}
 
 		if (logger.isTraceEnabled())
-			logger
-					.trace("component with id ["
-							+ componentId
-							+ "] is not configured "
-							+ "with access permissions; default in this case is to "
-							+ (allowAccessIfComponentIsNotConfigured ? "ALLOW"
-									: "DENY") + " access!");
+			logger.trace("component with id ["
+					+ componentId
+					+ "] is not configured "
+					+ "with access permissions; default in this case is to "
+					+ (allowAccessIfComponentIsNotConfigured ? "ALLOW" : "DENY")
+					+ " access!");
 
 		return allowAccessIfComponentIsNotConfigured;
 	}

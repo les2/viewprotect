@@ -6,6 +6,11 @@ import java.util.Map;
 import com.upthescala.viewprotect.ComponentAttribute;
 import com.upthescala.viewprotect.ComponentAttributeSource;
 
+/**
+ * A simple ComponentAttributeSource backed by a {@link Map}.
+ * 
+ * @author Lloyd Smith II
+ */
 public class BasicComponentAttributeSource implements ComponentAttributeSource {
 
 	private Map<String, ComponentAttribute> componentAttributeMap = new HashMap<String, ComponentAttribute>();
@@ -14,6 +19,13 @@ public class BasicComponentAttributeSource implements ComponentAttributeSource {
 		return componentAttributeMap.get(componentId);
 	}
 
+	/**
+	 * @param componentAttributeMap
+	 *            the Map from component id to ComponentAttribute that will back
+	 *            this ComponentAttributeSource
+	 * @throws IllegalArgumentException
+	 *             if the argument is {@code null}
+	 */
 	public void setComponentAttributeMap(
 			final Map<String, ComponentAttribute> componentAttributeMap) {
 		if (componentAttributeMap == null)
