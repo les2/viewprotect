@@ -4,6 +4,17 @@ import java.util.Set;
 
 import com.upthescala.viewprotect.ComponentAttribute;
 
+/**
+ * A BasicComponentAttributes is a composite {@link ComponentAttribute} that is
+ * satisfied if none of its constituent attributes are
+ * <strong>un</strong>satisfied by the user's granted roles. A
+ * BasicComponentAttributes can contain an {@link AnyGrantedAttribute},
+ * {@link AllGrantedAttribute}, and {@link NotGrantedAttribute}, but one or more
+ * of them may be {@code null}. If a constituent attribute is {@code null}, then
+ * any set of granted user roles will satisfy it.
+ * 
+ * @author Lloyd Smith II
+ */
 class BasicComponentAttributes implements ComponentAttribute {
 
 	private AnyGrantedAttribute anyGrantedAttribute;
@@ -25,7 +36,6 @@ class BasicComponentAttributes implements ComponentAttribute {
 			return false;
 
 		return true;
-
 	}
 
 	public void setAnyGrantedAttribute(
