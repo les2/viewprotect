@@ -20,20 +20,7 @@ abstract class AbstractComponentAttribute implements ComponentAttribute {
 				decisionSet)); // defensive
 	}
 
-	/**
-	 * Gets a new set containing the intersection of {@code a} and {@code b} .
-	 * The arguments will not be modified.
-	 * 
-	 * @param <T>
-	 *            the type of elements in the set
-	 * @param a
-	 *            a set
-	 * @param b
-	 *            a set
-	 * @return a new Set containing the intersection of sets {@code a} and
-	 *         {@code b}
-	 */
-	protected final <T> Set<T> intersection(final Set<T> a, final Set<T> b) {
+	private final <T> Set<T> intersection(final Set<T> a, final Set<T> b) {
 		Set<T> copy = new HashSet<T>(a);
 		copy.retainAll(b);
 		return copy;
