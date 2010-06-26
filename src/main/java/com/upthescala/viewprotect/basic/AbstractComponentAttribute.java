@@ -39,6 +39,14 @@ abstract class AbstractComponentAttribute implements ComponentAttribute {
 		return copy;
 	}
 
+	protected boolean containsNoneOfDecisionSet(final Set<String> grantedRoles) {
+		return intersection(grantedRoles, decisionSet).isEmpty();
+	}
+
+	protected boolean containsSomeOfDecisionSet(final Set<String> grantedRoles) {
+		return !containsNoneOfDecisionSet(grantedRoles);
+	}
+
 	/**
 	 * A fluently-named convenience method for negating
 	 * {@link #isSatisfiedBy(Set)}.

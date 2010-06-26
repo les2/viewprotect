@@ -15,6 +15,7 @@ class NotGrantedAttribute extends AbstractComponentAttribute {
 	}
 
 	public boolean isSatisfiedBy(final Set<String> grantedRoles) {
-		return intersection(grantedRoles, decisionSet).isEmpty();
+		return containsNoneOfDecisionSet(grantedRoles);
 	}
+
 }
