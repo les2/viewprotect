@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+	
+	<bean id="componentAttributeSourceFromProperties"
+		class="com.upthescala.viewprotect.basic.BasicComponentAttributeSourceFactoryBean">
+		<property name="propertiesAttributeMappings">
+			<value>
+				com.foo.component1.ifAnyGranted=ROLE_A,ROLE_B,ROLE_C
+				com.bar.component2.ifAllGranted=ROLE_X,ROLE_Y,ROLE_Z
+				com.foo.bar.component3.ifNotGranted=ROLE_M,ROLE_N,ROLE_O
+				component4.ifAnyGranted=ROLE_ANY_1,ROLE_ANY_2
+				component4.ifAllGranted=ROLE_ALL_1,ROLE_ALL_2,ROLE_ALL_3
+				component4.ifNotGranted=ROLE_NOT_1,ROLE_NOT_2,ROLE_NOT_3,ROLE_NOT_4
+			</value>
+		</property>
+	</bean>	
+	
+</beans>
