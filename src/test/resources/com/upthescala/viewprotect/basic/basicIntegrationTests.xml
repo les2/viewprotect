@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+	<bean id="componentAttributeSource"
+		class="com.upthescala.viewprotect.basic.BasicComponentAttributeSourceFactoryBean">
+		<property name="propertiesAttributeMappings">
+			<bean
+				class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+				<property name="location"
+					value="classpath:com/upthescala/viewprotect/basic/componentAttributeSourceFromExternalPropertiesTest.properties" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="viewAuthorizationService"
+		class="com.upthescala.viewprotect.basic.BasicViewAuthorizationService">
+		<property name="componentAttributeSource" ref="componentAttributeSource" />
+		<property name="allowAccessIfComponentIsNotConfigured" value="false" />
+	</bean>
+
+</beans>

@@ -1,8 +1,12 @@
-#Thu Jun 24 23:33:27 EDT 2010
+#Sun Jun 27 13:53:47 EDT 2010
 eclipse.preferences.version=1
 editor_save_participant_org.eclipse.jdt.ui.postsavelistener.cleanup=true
 formatter_profile=_Eclipse 2.1 [built-in] (viewprotect)
 formatter_settings_version=11
+org.eclipse.jdt.ui.ignorelowercasenames=true
+org.eclipse.jdt.ui.importorder=java;javax;org;com;
+org.eclipse.jdt.ui.ondemandthreshold=3
+org.eclipse.jdt.ui.staticondemandthreshold=3
 sp_cleanup.add_default_serial_version_id=true
 sp_cleanup.add_generated_serial_version_id=false
 sp_cleanup.add_missing_annotations=true
