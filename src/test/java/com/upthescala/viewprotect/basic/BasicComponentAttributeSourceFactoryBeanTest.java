@@ -1,20 +1,70 @@
 package com.upthescala.viewprotect.basic;
 
+import static com.upthescala.viewprotect.basic.BasicTestSupport.array;
+import static com.upthescala.viewprotect.basic.BasicTestSupport.roles;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertNull;
+import static org.testng.Assert.assertTrue;
+
 import java.util.HashMap;
 import java.util.Properties;
 import java.util.Set;
 
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.upthescala.viewprotect.ComponentAttribute;
 import com.upthescala.viewprotect.ComponentAttributeSource;
 
-import static com.upthescala.viewprotect.basic.BasicTestSupport.array;
-import static com.upthescala.viewprotect.basic.BasicTestSupport.roles;
-import static org.testng.Assert.*;
-
 public class BasicComponentAttributeSourceFactoryBeanTest {
+
+	@DataProvider(name = "beanDefTestDataProvider")
+	public Object[][] beanDefinitionTestDataProvider() {
+		// @formatter:off
+		return new Object[][] {
+			{"com/upthescala/viewprotect/basic/componentAttributeSourceFromMapTestContext.xml","componentAttributeSourceFromMap"},
+			{"com/upthescala/viewprotect/basic/componentAttributeSourceFromPropertiesTestContext.xml","componentAttributeSourceFromProperties"},
+			{"com/upthescala/viewprotect/basic/componentAttributeSourceFromExternalPropertiesTestContext.xml","componentAttributeSourceFromExternalProperties"},
+		};
+		// @formatter:on
+	}
+
+	@Test(dataProvider = "beanDefTestDataProvider")
+	public void factoryBeanShouldProduceAttributeSourceFromSpringBeanDefinition(
+			final String configLocation, final String beanName) {
+
+		ComponentAttributeSource source = (ComponentAttributeSource) new ClassPathXmlApplicationContext(
+				configLocation).getBean(beanName,
+				ComponentAttributeSource.class);
+
+		assertNotNull(source);
+
+		assertAttributePresentFor("com.foo.component1", source);
+		assertAttributePresentFor("com.bar.component2", source);
+		assertAttributePresentFor("com.foo.bar.component3", source);
+		assertAttributePresentFor("component4", source);
+
+		assertBasicAttributesMatch(source.getAttribute("com.foo.component1"),
+				allGranted(), anyGranted("ROLE_A", "ROLE_B", "ROLE_C"),
+				notGranted());
+
+		assertBasicAttributesMatch(source.getAttribute("com.bar.component2"),
+				allGranted("ROLE_X", "ROLE_Y", "ROLE_Z"), anyGranted(),
+				notGranted());
+
+		assertBasicAttributesMatch(
+				source.getAttribute("com.foo.bar.component3"), allGranted(),
+				anyGranted(), notGranted("ROLE_M", "ROLE_N", "ROLE_O"));
+
+		assertBasicAttributesMatch(
+				source.getAttribute("component4"),
+				allGranted("ROLE_ALL_1", "ROLE_ALL_2", "ROLE_ALL_3"),
+				anyGranted("ROLE_ANY_1", "ROLE_ANY_2"),
+				notGranted("ROLE_NOT_1", "ROLE_NOT_2", "ROLE_NOT_3",
+						"ROLE_NOT_4"));
+	}
 
 	@Test
 	public void objectTypeShouldBeComponentAttributeSource() {
