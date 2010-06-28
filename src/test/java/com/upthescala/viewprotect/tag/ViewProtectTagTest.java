@@ -1,11 +1,7 @@
 package com.upthescala.viewprotect.tag;
 
 import static com.upthescala.viewprotect.basic.BasicTestSupport.array;
-import static org.easymock.EasyMock.createMock;
-import static org.easymock.EasyMock.expect;
-import static org.easymock.EasyMock.replay;
-import static org.easymock.EasyMock.reset;
-import static org.easymock.EasyMock.verify;
+import static org.easymock.EasyMock.*;
 import static org.testng.Assert.assertEquals;
 
 import javax.servlet.jsp.JspException;
@@ -17,10 +13,7 @@ import org.acegisecurity.context.SecurityContextHolder;
 import org.springframework.mock.web.MockPageContext;
 import org.springframework.mock.web.MockServletContext;
 import org.springframework.web.context.WebApplicationContext;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import com.upthescala.viewprotect.ViewAuthorizationService;
 
@@ -68,14 +61,20 @@ public class ViewProtectTagTest {
 
 	@DataProvider(name = "protectTag")
 	public Object[][] protectTagDataProvider() {
-		return new Object[][]{{"foo", false, Tag.SKIP_BODY},
-				{"foo", true, Tag.EVAL_BODY_INCLUDE},};
+		// @formatter:off
+		return new Object[][]{
+			{"foo", false, Tag.SKIP_BODY, null},
+			{"foo", true, Tag.EVAL_BODY_INCLUDE, null},
+			{"foo",false,Tag.SKIP_BODY, "isFooAuthorized"},
+			{"foo",true,Tag.EVAL_BODY_INCLUDE, "isFooAuthorized"},
+		};
+		// @formatter:on
 	}
 
 	@Test(dataProvider = "protectTag")
 	public void testProtectTag(final String componentId,
-			final boolean isAuthorized, final int expectedDoStartTagResult)
-			throws JspException {
+			final boolean isAuthorized, final int expectedDoStartTagResult,
+			final String var) throws JspException {
 
 		expect(
 				applicationContext.getBean("viewAuthorizationService",
@@ -89,6 +88,7 @@ public class ViewProtectTagTest {
 		replay(mocks);
 
 		tag.setComponentId(componentId);
+		tag.setVar(var);
 
 		assertEquals(tag.getComponentId(), componentId);
 
@@ -96,6 +96,11 @@ public class ViewProtectTagTest {
 				"doStartTagResult does not match expected");
 
 		verify(mocks);
+
+		if (var != null)
+			assertEquals(pageContext.getAttribute(var), isAuthorized,
+					"expecting pageScope var named [" + var + "] with value ["
+							+ isAuthorized + "] set");
 	}
 
 	@AfterMethod

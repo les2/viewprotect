@@ -28,5 +28,14 @@
 				to be protected (e.g., com.upthescala.help.deleteButton). 
 			</description>
 		</attribute>
+		<attribute>
+			<name>var</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				Causes the tag to set a page scope variable containing
+				whether the component is authorized for the current user.
+			</description>
+		</attribute>		
 	</tag>
 </taglib>

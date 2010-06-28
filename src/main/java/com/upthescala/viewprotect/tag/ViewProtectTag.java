@@ -59,26 +59,20 @@ public class ViewProtectTag extends TagSupport {
 
 	private String componentId;
 
-	public String getComponentId() {
-		return componentId;
-	}
-
-	/**
-	 * @param componentId
-	 *            the componentId passed to
-	 *            {@link ViewAuthorizationService#isAuthorizedForUser(String)}
-	 */
-	public void setComponentId(final String componentId) {
-		this.componentId = componentId;
-	}
+	private String var;
 
 	@Override
 	public int doStartTag() throws JspException {
 
 		ViewAuthorizationService viewAuthService = getViewAuthorizationService();
 
-		if (viewAuthService.isAuthorizedForUser(componentId,
-				SecurityContextHolder.getContext().getAuthentication()))
+		boolean authorizedForUser = viewAuthService.isAuthorizedForUser(
+				componentId, SecurityContextHolder.getContext()
+						.getAuthentication());
+		if (var != null)
+			pageContext.setAttribute(var, Boolean.valueOf(authorizedForUser));
+
+		if (authorizedForUser)
 			return Tag.EVAL_BODY_INCLUDE;
 
 		return Tag.SKIP_BODY;
@@ -94,4 +88,32 @@ public class ViewProtectTag extends TagSupport {
 				VIEW_AUTH_SERVICE_BEAN_NAME, ViewAuthorizationService.class);
 	}
 
+	public String getComponentId() {
+		return componentId;
+	}
+
+	/**
+	 * @param componentId
+	 *            the componentId passed to
+	 *            {@link ViewAuthorizationService#isAuthorizedForUser(String)}
+	 */
+	public void setComponentId(final String componentId) {
+		this.componentId = componentId;
+	}
+
+	public String getVar() {
+		return var;
+	}
+
+	/**
+	 * Causes the tag to set a page scope variable containing whether the
+	 * component is authorized for the current user.
+	 * 
+	 * @param var
+	 *            name of the pageScope variable in which to store the result of
+	 *            the authorization attempt for the component
+	 */
+	public void setVar(final String var) {
+		this.var = var;
+	}
 }
