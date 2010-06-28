@@ -91,6 +91,7 @@ public class ViewProtectTagTest {
 		tag.setVar(var);
 
 		assertEquals(tag.getComponentId(), componentId);
+		assertEquals(tag.getVar(), var);
 
 		assertEquals(tag.doStartTag(), expectedDoStartTagResult,
 				"doStartTagResult does not match expected");
