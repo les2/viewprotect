@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:viewprotect="http://www.upthescala.com/schema/viewprotect/spring"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+	http://www.upthescala.com/schema/viewprotect/spring
+	http://www.upthescala.com/schema/viewprotect/spring/viewprotect.xsd">
+
+	<viewprotect:basic id="viewAuthorizationService"
+		allow-access-by-default="false" 
+		attribute-source-location="classpath:com/upthescala/viewprotect/basic/componentAttributeSourceFromExternalPropertiesTest.properties"/>
+
+</beans>

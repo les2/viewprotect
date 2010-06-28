@@ -38,7 +38,7 @@ public class BasicViewProtectIntegrationTest {
 	}
 
 	@DataProvider(name = "integrationTestDataProvider")
-	public Object[][] integrationTestDataProvider() {
+	public static Object[][] integrationTestDataProvider() {
 		// @formatter:off
 		return new Object[][]{
 			//{"unconfiguredComponent", auths(), false}, 

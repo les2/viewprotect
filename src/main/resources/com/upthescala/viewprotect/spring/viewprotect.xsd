@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns="http://www.upthescala.com/schema/viewprotect/spring"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.upthescala.com/schema/viewprotect/spring"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+	<xsd:element name="basic">
+		<xsd:annotation>
+			<xsd:documentation>
+				Defines a new com.upthescala.viewprotect.basic.BasicViewAuthorizationService.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:attribute name="id" type="xsd:ID">
+				<xsd:annotation>
+					<xsd:documentation>
+						The name of the BasicViewAuthorizationService bean.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+			<xsd:attribute name="allow-access-by-default" type="xsd:boolean" default="true">
+				<xsd:annotation>
+					<xsd:documentation>
+						Whether to allow access to unmapped components by default.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+			<xsd:attribute name="attribute-source-ref" type="xsd:string" use="optional">
+				<xsd:annotation>
+					<xsd:documentation>
+						The bean name of the com.upthescala.viewprotect.ComponentAttributeSource to be used.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+			<xsd:attribute name="attribute-source-location" type="xsd:string" use="optional">
+				<xsd:annotation>
+					<xsd:documentation>
+						The location of the properties file containing the attribute mappings
+						used to create a com.upthescala.viewprotect.basic.BasicComponentAttibuteSource.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+
+</xsd:schema>
